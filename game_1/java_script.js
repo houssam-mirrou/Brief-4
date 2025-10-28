@@ -4,48 +4,61 @@ const butt = document.getElementById("play-button");
 
 butt.addEventListener("click", function () {
     let diff = Number(difficultty.value);
-    let total_number = diff*diff;
+    if (diff < 4 || diff > 8 || diff % 2 !== 0) {
+        alert("Please Enter a valid difficulty (4,6, or 8).");
+        return;
+    }
+
+    let total_number = diff * diff;
     let i;
-    while (container.firstChild){
+    while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
     let table = [];
-    let j=1;
-    for(i=0;i<total_number;i++){
-        if(i === (total_number/2)){
-            j=1;
+    let j = 1;
+    for (i = 0; i < total_number; i++) {
+        if (i === (total_number / 2)) {
+            j = 1;
         }
-        table[i]=j++;
-    }
-    
-    for(i=0 ; i<total_number;i++){
-        j = Math.floor(Math.random() * (total_number)+1);
-        let temp =table[i];
-        table[i]=table[j];
-        table[j]=temp;
+        table[i] = j++;
     }
 
-    let firstCard=null;
-    let secondCard=null;
-    for(i=0;i<total_number;i++){
+    for (i = 0; i < total_number; i++) {
+        j = Math.floor(Math.random() * (total_number));
+        let temp = table[i];
+        table[i] = table[j];
+        table[j] = temp;
+    }
+
+    let firstCard = null;
+    let secondCard = null;
+    let locked = false;
+
+    for (i = 0; i < total_number; i++) {
         let card = document.createElement("div");
         card.className = "card";
 
         let text = document.createElement("h2");
-        text.className="number";
-        text.textContent=table[i];
-        text.style.display="none";
+        text.className = "number";
+        text.textContent = table[i];
+        text.style.display = "none";
         card.appendChild(text);
 
-        card.addEventListener("click",function(){
-            let numberElem = this.querySelector(".number");
-            numberElem.style.display="block";
-            this.style.pointerEvents="none";
-            if(firstCard==null){
-                firstCard=this;
+        card.addEventListener("click", function () {
+
+            if (locked === true) {
+                return;
             }
-            else{
-                secondCard=this;
+            this.classList.add("flipped");
+
+            let numberElem = this.querySelector(".number");
+            numberElem.style.display = "block";
+            this.style.pointerEvents = "none";
+            if (firstCard == null) {
+                firstCard = this;
+            }
+            else {
+                secondCard = this;
                 checkMAtch();
             }
         });
@@ -54,22 +67,28 @@ butt.addEventListener("click", function () {
     }
 
     function checkMAtch() {
-    let val1 = firstCard.querySelector(".number").textContent;
-    let val2 = secondCard.querySelector(".number").textContent;
-    if(val1 === val2){
-        firstCard=null;
-        secondCard==null;
+        let val1 = firstCard.querySelector(".number").textContent;
+        let val2 = secondCard.querySelector(".number").textContent;
+        if (val1 === val2) {
+            firstCard = null;
+            secondCard = null;
+        }
+        else {
+            locked = true;
+            setTimeout(function () {
+                firstCard.classList.remove("flipped");
+                secondCard.classList.remove("flipped");
+                firstCard.querySelector(".number").style.display = "none";
+                secondCard.querySelector(".number").style.display = "none";
+                firstCard.style.pointerEvents = "auto";
+                secondCard.style.pointerEvents = "auto";
+                firstCard = null;
+                secondCard = null;
+                locked = false;
+                
+
+            }, 700);
+        }
     }
-    else {
-        setTimeout(function() {
-            firstCard.querySelector(".number").style.display="none";
-            secondCard.querySelector(".number").style.display="none";
-            firstCard.style.pointerEvents="auto";
-            secondCard.style.pointerEvents="auto";
-            firstCard=null;
-            secondCard=null;
-        },700);
-    }
-}
 });
 

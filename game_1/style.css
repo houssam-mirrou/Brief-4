@@ -2,13 +2,14 @@
     margin: 0;
     padding: 0;
 }
+
 .parent-container {
     padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: slategrey;
+    background-color: #b2d8d8;
     gap: 20px;
 }
 
@@ -23,25 +24,45 @@
 #difficulty {
     height: 40px;
     width: 200px;
+    border: 2px solid white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
 }
 
 #play-button {
     height: 40px;
-    width: 200px;
+    width: 300px;
     border: none;
     color: rgb(0, 54, 155);
     background-color: paleturquoise;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+#play-button:hover {
+    background-color: turquoise;
+    transform: scale(1.05);
 }
 
 .container {
     display: grid;
+    justify-content: center;
+    align-items: center;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 10px;
     width: 100%;
+    perspective: 1000px;
 }
 
+
+
 .card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,11 +70,53 @@
     background-color: aquamarine;
     border: 3px white solid;
     border-radius: 10px;
-    height: 30vh;
+    aspect-ratio: 1 / 1;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+    width: 170px;
+    height: 170px;
+}
+
+.card::before {
+    content: "?";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, aquamarine, #008080);
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+    border-radius: 10px;
+    backface-visibility: hidden;
 }
 
 .number {
+    position: absolute;
+    inset: 0;
     font-size: 30px;
     color: white;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #007bff, #00aaff);
+    border-radius: 10px;
+    border: 3px solid white;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Slight hover lift */
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
 }
