@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.parent-container {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: slategrey;
+    gap: 20px;
+}
+
+.container-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+#difficulty {
+    height: 40px;
+    width: 200px;
+}
+
+#play-button {
+    height: 40px;
+    width: 200px;
+    border: none;
+    color: cornflowerblue;
+    background-color: paleturquoise;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aquamarine;
+    border: 3px white solid;
+    border-radius: 10px;
+    height: 30vh;
+}
+
