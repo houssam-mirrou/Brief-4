@@ -29,7 +29,7 @@
     height: 40px;
     width: 200px;
     border: none;
-    color: cornflowerblue;
+    color: rgb(0, 54, 155);
     background-color: paleturquoise;
 }
 
@@ -52,3 +52,8 @@
     height: 30vh;
 }
 
+.number {
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
