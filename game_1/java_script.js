@@ -16,6 +16,11 @@ butt.addEventListener("click", function () {
         alert("Please Enter a valid difficulty (4,6, or 8).");
         return;
     }
+
+    while(won_message.firstChild){
+        won_message.removeChild(won_message.firstChild);
+    }
+
     scr = 0;
     number_of_tries = 0;
     score.textContent = scr;
