@@ -5,6 +5,7 @@ const score = document.querySelector(".score");
 const attempts = document.querySelector(".attempts");
 const won_message = document.querySelector(".you-won");
 const highScore = document.querySelector(".highScore");
+const victory_sound = new Audio('victory.mp3')
 
 let cpt = 0;
 let number_of_tries = 0;
@@ -99,7 +100,7 @@ butt.addEventListener("click", function () {
             score.textContent = scr;
             if (scr == total_number / 2) {
                 won_message.textContent = "You wonnnnn the game";
-
+                victory_sound.play();
                 console.log(typeof temp_scr);
                 console.log(typeof number_of_tries);
                 console.log(temp_scr);
