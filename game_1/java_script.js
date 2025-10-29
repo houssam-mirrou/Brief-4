@@ -4,20 +4,25 @@ const butt = document.getElementById("play-button");
 const score = document.querySelector(".score");
 const attempts = document.querySelector(".attempts");
 const won_message = document.querySelector(".you-won");
-
+const highScore = document.querySelector(".highScore");
 
 let cpt = 0;
 let number_of_tries = 0;
 let scr = 0;
 
+let temp_scr = Number(localStorage.getItem("highScore"));
+highScore.textContent = temp_scr;
+
+
 butt.addEventListener("click", function () {
+
     let diff = Number(difficultty.value);
     if (diff < 4 || diff > 8 || diff % 2 !== 0) {
         alert("Please Enter a valid difficulty (4,6, or 8).");
         return;
     }
 
-    while(won_message.firstChild){
+    while (won_message.firstChild) {
         won_message.removeChild(won_message.firstChild);
     }
 
@@ -94,9 +99,24 @@ butt.addEventListener("click", function () {
             score.textContent = scr;
             if (scr == total_number / 2) {
                 won_message.textContent = "You wonnnnn the game";
+
+                console.log(typeof temp_scr);
+                console.log(typeof number_of_tries);
+                console.log(temp_scr);
+                console.log(number_of_tries);
+                if (number_of_tries < temp_scr) {
+                    localStorage.setItem("highScore", number_of_tries);
+                    highScore.textContent = number_of_tries;
+                }
+                else {
+                    highScore.textContent = temp_scr;
+
+                }
             }
         }
         else {
+            number_of_tries++;
+            attempts.textContent = number_of_tries;
             locked = true;
             setTimeout(function () {
                 firstCard.classList.remove("flipped");
@@ -112,8 +132,7 @@ butt.addEventListener("click", function () {
 
             }, 700);
         }
-        number_of_tries++;
-        attempts.textContent = number_of_tries;
+
     }
 });
 
