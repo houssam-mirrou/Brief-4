@@ -3,6 +3,8 @@ const difficultty = document.getElementById("difficulty");
 const butt = document.getElementById("play-button");
 const score = document.querySelector(".score");
 const attempts = document.querySelector(".attempts");
+const won_message = document.querySelector(".you-won");
+
 
 let cpt = 0;
 let number_of_tries = 0;
@@ -15,8 +17,8 @@ butt.addEventListener("click", function () {
         return;
     }
     scr = 0;
-    number_of_tries=0;
-    score.textContent=scr;
+    number_of_tries = 0;
+    score.textContent = scr;
     attempts.textContent = number_of_tries;
 
     let total_number = diff * diff;
@@ -74,6 +76,7 @@ butt.addEventListener("click", function () {
         });
         container.appendChild(card);
 
+
     }
 
     function checkMAtch() {
@@ -84,6 +87,9 @@ butt.addEventListener("click", function () {
             secondCard = null;
             scr++;
             score.textContent = scr;
+            if (scr == total_number / 2) {
+                won_message.textContent = "You wonnnnn the game";
+            }
         }
         else {
             locked = true;
@@ -97,7 +103,7 @@ butt.addEventListener("click", function () {
                 firstCard = null;
                 secondCard = null;
                 locked = false;
-                
+
 
             }, 700);
         }
