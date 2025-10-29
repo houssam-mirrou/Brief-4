@@ -1,6 +1,12 @@
 const container = document.querySelector(".container");
 const difficultty = document.getElementById("difficulty");
 const butt = document.getElementById("play-button");
+const score = document.querySelector(".score");
+const attempts = document.querySelector(".attempts");
+
+let cpt = 0;
+let number_of_tries = 0;
+let scr = 0;
 
 butt.addEventListener("click", function () {
     let diff = Number(difficultty.value);
@@ -8,6 +14,10 @@ butt.addEventListener("click", function () {
         alert("Please Enter a valid difficulty (4,6, or 8).");
         return;
     }
+    scr = 0;
+    number_of_tries=0;
+    score.textContent=scr;
+    attempts.textContent = number_of_tries;
 
     let total_number = diff * diff;
     let i;
@@ -72,6 +82,8 @@ butt.addEventListener("click", function () {
         if (val1 === val2) {
             firstCard = null;
             secondCard = null;
+            scr++;
+            score.textContent = scr;
         }
         else {
             locked = true;
@@ -89,6 +101,8 @@ butt.addEventListener("click", function () {
 
             }, 700);
         }
+        number_of_tries++;
+        attempts.textContent = number_of_tries;
     }
 });
 
