@@ -110,3 +110,9 @@ h1 {
     font-size: 20px;
 }
 
+.button:hover {
+    background-color: white;
+    color: darkslategray;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px white;
+}

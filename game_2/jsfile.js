@@ -13,7 +13,6 @@ text_holder.style.height = "30vh";
 let wpm_value = 0;
 let accuracy_value = 0;
 let span_arr = new Array();
-let number_of_words = 0;
 let error_number = 0;
 let string = "";
 let k = 0;
@@ -21,6 +20,9 @@ let k = 0;
 function reset_the_game() {
     string = "";
     span_arr = [];
+    error_number = 0;
+    accuracy_value = 0;
+    wpm_value = 0;
     while (text_holder.firstChild) {
         text_holder.removeChild(text_holder.firstChild);
     }
@@ -32,9 +34,9 @@ function reset_the_game() {
     wpm.style.color = "white";
     errors.style.color = "white";
     timer.style.color = "white";
-    accuracy.textContent ="--";
-    wpm.textContent ="--";
-    errors.textContent ="--";
+    accuracy.textContent = "--";
+    wpm.textContent = "--";
+    errors.textContent = "--";
 }
 
 function createSpans(text) {
@@ -118,15 +120,15 @@ function start_timer() {
             } else {
                 wpm.style.color = "green";
             }
-            if(wpm_value == Infinity){
-                wpm.textContent="--";
+            if (wpm_value == Infinity) {
+                wpm.textContent = "--";
             }
             errors.textContent = error_number;
             if (error_number <= 5) {
                 errors.style.color = "green";
-            } else if (error_number>5 && error_number<=10){
+            } else if (error_number > 5 && error_number <= 10) {
                 errors.style.color = "yellow";
-            }else {
+            } else {
                 errors.style.color = "red";
             }
         } else if (min <= 0) {
@@ -155,7 +157,7 @@ function start_timer() {
 }
 
 button.addEventListener("click", function () {
-    if(timer_input.value<60){
+    if (timer_input.value < 60) {
         alert("you must enter a number superior or equals to 60");
         return;
     }
