@@ -26,8 +26,15 @@ function reset_the_game() {
     }
     text_holder.setAttribute("tabindex", "0");
     text_holder.focus();
-    timer.textContent = "";
+    timer.textContent = "--";
     text_holder.style.height = "auto";
+    accuracy.style.color = "white";
+    wpm.style.color = "white";
+    errors.style.color = "white";
+    timer.style.color = "white";
+    accuracy.textContent ="--";
+    wpm.textContent ="--";
+    errors.textContent ="--";
 }
 
 function createSpans(text) {
@@ -78,36 +85,68 @@ function start_timer() {
         let sec = timeleft % 60;
         if (timeleft <= 0) {
             clearInterval(timerInterval);
+            timer.style.color = "red";
             timer.textContent = "Time's up";
             button.disabled = false;
             text_holder.removeAttribute("tabindex");
-            accuracy_value = 0;
+            correct_chars = 0;
             for (let j = 0; j < span_arr.length; j++) {
                 if (span_arr[j].style.color == "green") {
-                    accuracy_value++;
+                    correct_chars++;
                 }
             }
-            accuracy_value = (accuracy_value * 100) / span_arr.length;
+            accuracy_value = (correct_chars * 100) / k;
+            if (accuracy_value >= 50) {
+                accuracy.style.color = "green";
+            }
+            else if (accuracy_value < 50 || accuracy_value > 30) {
+                accuracy.style.color = "yellow";
+            }
+            else {
+                accuracy.style.color = "red";
+            }
             accuracy.textContent = accuracy_value.toFixed(2) + "%";
-            let string_arr = string.split(/\s+/);
-            wpm_value = string_arr.length;
-            wpm.textContent = wpm_value;
-            errors.textContent = error_number;
 
+            let words = string.trim().split(/\s+/).length;
+            let total_time_minutes = Number(timer_input.value) / 60;
+            wpm_value = words / total_time_minutes;
+            wpm.textContent = wpm_value.toFixed(2);
+            if (wpm_value <= 25) {
+                wpm.style.color = "red";
+            } else if (wpm_value > 25 && wpm_value <= 40) {
+                wpm.style.color = "yellow";
+            } else {
+                wpm.style.color = "green";
+            }
+            if(wpm_value == Infinity){
+                wpm.textContent="--";
+            }
+            errors.textContent = error_number;
+            if (error_number <= 5) {
+                errors.style.color = "green";
+            } else if (error_number>5 && error_number<=10){
+                errors.style.color = "yellow";
+            }else {
+                errors.style.color = "red";
+            }
         } else if (min <= 0) {
+            timer.style.color = "green";
             if (sec < 10) {
+                timer.style.color = "yellow";
                 timer.textContent = "0" + sec;
             }
             else {
                 timer.textContent = sec;
             }
         } else {
+            timer.style.color = "green";
             if (sec < 10) {
                 timer.textContent = min + " : 0" + sec;
             }
             else {
                 timer.textContent = min + " : " + sec;
             }
+
         }
         timeleft--;
     }
@@ -116,6 +155,10 @@ function start_timer() {
 }
 
 button.addEventListener("click", function () {
+    if(timer_input.value<60){
+        alert("you must enter a number superior or equals to 60");
+        return;
+    }
     reset_the_game();
     fetch("text.txt")
         .then(function (response) {
