@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <title>Game 2</title>
+    <script src="jsfile.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Typing Game</h1>
+            <div class="timer_button">
+                <label for="timer_input">Set Your timer : </label>
+                <input type="number" min="1" id="timer_input" step="10" value="1">
+                <button class="button">start</button>
+            </div>
+        </div>
+        <div class="textarea-container">
+            <textarea id="textarea"></textarea>
+            <span id="text_holder"></span>
+        </div>
+        <div class="footer">
+            <h2>Timer : </h2>
+            <h2 class="timer"></h2>
+            <h2>Best time : </h2>
+            <h2 class="best_time"></h2>
+        </div>
+    </div>
+</body>
+
+</html>
